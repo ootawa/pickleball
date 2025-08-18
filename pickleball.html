@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ピックルボールカウント</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .counter {
+      font-size: 3rem;
+      margin: 20px 0;
+      display: inline-block;
+    }
+    button {
+      font-size: 1rem;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body onload="myServReset();">
+  <h1></h1>
+  <button onclick="myServReset()">自分サーブ開始</button>
+  <button onclick="oppServReset()">相手サーブ開始</button>
+  <div style="align-items: center;">
+    <div class="counter" id="mycount">0</div> - <div class="counter" id="oppcount">0</div> - <div class="counter" id="servcount">0</div>
+  </div>
+  <button onclick="myget()">自分</button>
+  <button onclick="oppget()">相手</button>
+  <br/>
+
+  <script>
+    let serviceSide = 1;
+    let mycount = 0;
+    let oppcount = 0;
+    let servcount = 2;
+
+    function updateCounter() {
+      document.getElementById('mycount').textContent = mycount;
+      document.getElementById('oppcount').textContent = oppcount;
+      document.getElementById('servcount').textContent = servcount;
+    }
+
+    function myget() {
+      // 自サーブで、自成功
+      if (serviceSide == 1) {
+        mycount++;
+      }
+      // 他サーブで、自成功
+      if (serviceSide == 2) {
+        if (servcount == 1) {
+          // サービスカウントが1なら、他サーブのままサービスカウントをアップ
+          servcount++;
+        } else if (servcount == 2) {
+          // サービスカウントが2なら、自サーブへ変更
+          servcount = 1;
+          myServSide();
+        }
+      }
+      updateCounter();
+    }
+
+    function oppget() {
+      // 他サーブで、他成功
+      if (serviceSide == 2) {
+        oppcount++;
+      }
+      // 自サーブで、他成功
+      if (serviceSide == 1) {
+        if (servcount == 1) {
+          // サービスカウントが1なら、自サーブのままサービスカウントをアップ
+          servcount++;
+        } else if (servcount == 2) {
+          // サービスカウントが2なら、他サーブへ変更
+          servcount = 1;
+          oppServSide();
+        }
+      }
+      updateCounter();
+    }
+
+    function myServSide() {
+      serviceSide = 1;
+      document.body.style.backgroundColor = "#AFEEEE";
+    }
+
+    function oppServSide() {
+      serviceSide = 2;
+      document.body.style.backgroundColor = "#F08080";
+    }
+
+    function myServReset() {
+      myServSide();
+      mycount = 0;
+      oppcount = 0;
+      servcount = 2;
+      updateCounter();
+    }
+
+    function oppServReset() {
+      oppServSide();
+      mycount = 0;
+      oppcount = 0;
+      servcount = 2;
+      updateCounter();
+    }
+  </script>
+</body>
+</html>
