@@ -15,9 +15,15 @@
       margin: 20px 0;
       display: inline-block;
     }
-    button {
+    .button1 {
       font-size: 1rem;
-      padding: 10px 20px;
+      padding: 20px 20px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    .button2 {
+      font-size: 1rem;
+      padding: 30px 40px;
       margin: 5px;
       cursor: pointer;
     }
@@ -25,13 +31,13 @@
 </head>
 <body onload="myServReset();">
   <h1></h1>
-  <button onclick="myServReset()">自分サーブ開始</button>
-  <button onclick="oppServReset()">相手サーブ開始</button>
+  <button class="button1" onclick="myServReset()">自分サーブ開始</button>
+  <button class="button1" onclick="oppServReset()">相手サーブ開始</button>
   <div style="align-items: center;">
     <div class="counter" id="mycount">0</div> - <div class="counter" id="oppcount">0</div> - <div class="counter" id="servcount">0</div>
   </div>
-  <button onclick="myget()">自分</button>
-  <button onclick="oppget()">相手</button>
+  <button class="button2" onclick="myget()">自分</button>
+  <button class="button2" onclick="oppget()">相手</button>
   <br/>
 
   <script>
@@ -112,3 +118,4 @@
   </script>
 </body>
 </html>
+
