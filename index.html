@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=3.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ピックルボールカウント</title>
   <style>
     body {
@@ -27,20 +27,25 @@
       margin: 0px 10px;
       cursor: pointer;
     }
+    .button3 {
+      font-size: 2rem;
+      padding: 10px 10px;
+      margin: 0px 10px;
+      cursor: pointer;
+      background-color: red;
+    }
   </style>
 </head>
 <body onload="myServReset();">
   <h1></h1>
-  <button class="botton1" onclick="myServReset()">自分開始</button>
-  <button class="botton1" onclick="oppServReset()">相手開始</button>
+  <button class="botton1" onclick="myServReset()">自分サーブ開始</button>
+  <button class="botton1" onclick="oppServReset()">相手サーブ開始</button>
   <div style="align-items: center;">
     <div class="counter" id="mycount">0</div><div class="counter">-</div><div class="counter" id="oppcount">0</div><div class="counter">-</div><div class="counter" id="servcount">0</div>
   </div>
   <button class="botton2" onclick="myget()">&nbsp;&nbsp;&nbsp;&nbsp;自&nbsp;分&nbsp;&nbsp;&nbsp;&nbsp;</button>
-  <button class="botton2"onclick="oppget()">&nbsp;&nbsp;&nbsp;&nbsp;相&nbsp;手&nbsp;&nbsp;&nbsp;&nbsp;</button>
-  <div style="margin-top: 10px;">
-    <button class="botton2" onclick="undo()">&nbsp;&nbsp;戻&nbsp;す&nbsp;&nbsp;</button>
-  </div>
+  <button class="botton2" onclick="oppget()">&nbsp;&nbsp;&nbsp;&nbsp;相&nbsp;手&nbsp;&nbsp;&nbsp;&nbsp;</button>
+  <button class="botton3" style="background-color:salmon;" onclick="undo()">&nbsp;&nbsp;戻&nbsp;す&nbsp;&nbsp;</button>
 
   <script>
     class Task {
