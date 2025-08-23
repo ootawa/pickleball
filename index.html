@@ -32,90 +32,134 @@
   </div>
   <button onclick="myget()">　　自&nbsp;分　　</button>
   <button onclick="oppget()">　　相&nbsp;手　　</button>
+  <div style="margin-top: 50px;">
+    <button onclick="undo()" style="font-size: 5vw; padding: 6vw 6vw;">戻す</button>
+  </div>
 
   <script>
-    let serviceSide = 1;
-    let mycount = 0;
-    let oppcount = 0;
-    let servcount = 2;
+    class Task {
+      constructor(serviceSide, mycount, oppcount, servcount) {
+        this.serviceSide = serviceSide;
+        this.mycount = mycount;
+        this.oppcount = oppcount;
+        this.servcount = servcount;
+      }
+    }
 
-    function updateCounter() {
-      document.getElementById('mycount').textContent = mycount;
-      document.getElementById('oppcount').textContent = oppcount;
-      document.getElementById('servcount').textContent = servcount;
+    class TaskStack {
+      constructor() {
+        this.stack = [];
+      }
+
+      // スタックにタスクを追加
+      push(task) {
+        if (task instanceof Task) {
+          this.stack.push(task);
+        } else {
+          throw new Error('Taskオブジェクトのみ追加できます');
+        }
+      }
+
+      // スタックからタスクを取り出す
+      pop() {
+        return this.stack.pop();
+      }
+
+      // 最後のタスクを確認
+      peek() {
+        const last = this.stack[this.stack.length - 1];
+        return new Task(last.serviceSide, last.mycount, last.oppcount, last.servcount);
+      }
+
+      // スタックが空かどうか
+      isEmpty() {
+        return this.stack.length === 0;
+      }
+    }
+  
+    let stack = new TaskStack();
+    stack.push(new Task(1, 0, 0, 2));
+
+    function updateCounter(obj) {
+      document.getElementById('mycount').textContent = obj.mycount;
+      document.getElementById('oppcount').textContent = obj.oppcount;
+      document.getElementById('servcount').textContent = obj.servcount;
+      if (obj.serviceSide == 1) {
+        document.body.style.backgroundColor = "#AFEEEE";
+      } else {
+        document.body.style.backgroundColor = "#F08080";
+      }
     }
 
     function myget() {
+      let stack1 = stack.peek();
       // 自サーブで、自成功
-      if (serviceSide == 1) {
-        mycount++;
+      if (stack1.serviceSide == 1) {
+        stack1.mycount++;
       }
       // 他サーブで、自成功
-      if (serviceSide == 2) {
-        if (servcount == 1) {
+      if (stack1.serviceSide == 2) {
+        if (stack1.servcount == 1) {
           // サービスカウントが1なら、他サーブのままサービスカウントをアップ
-          servcount++;
-        } else if (servcount == 2) {
+          stack1.servcount++;
+        } else if (stack1.servcount == 2) {
           // サービスカウントが2なら、自サーブへ変更
-          servcount = 1;
-          myServSide();
+          stack1.servcount = 1;
+          stack1.serviceSide = 1;
         }
       }
-      updateCounter();
+      stack.push(stack1);
+      updateCounter(stack1);
     }
 
     function oppget() {
+      let stack1 = stack.peek();
       // 他サーブで、他成功
-      if (serviceSide == 2) {
-        oppcount++;
+      if (stack1.serviceSide == 2) {
+        stack1.oppcount++;
       }
       // 自サーブで、他成功
-      if (serviceSide == 1) {
-        if (servcount == 1) {
+      if (stack1.serviceSide == 1) {
+        if (stack1.servcount == 1) {
           // サービスカウントが1なら、自サーブのままサービスカウントをアップ
-          servcount++;
-        } else if (servcount == 2) {
+          stack1.servcount++;
+        } else if (stack1.servcount == 2) {
           // サービスカウントが2なら、他サーブへ変更
-          servcount = 1;
-          oppServSide();
+          stack1.servcount = 1;
+          stack1.serviceSide = 2;
         }
       }
-      updateCounter();
-    }
-
-    function myServSide() {
-      serviceSide = 1;
-      document.body.style.backgroundColor = "#AFEEEE";
-    }
-
-    function oppServSide() {
-      serviceSide = 2;
-      document.body.style.backgroundColor = "#F08080";
+      stack.push(stack1);
+      updateCounter(stack1);
     }
 
     function myServReset() {
-      myServSide();
-      mycount = 0;
-      oppcount = 0;
-      servcount = 2;
-      updateCounter();
+      stack = new TaskStack();
+      let stack1 = new Task(1, 0, 0, 2)
+      stack.push(stack1);
+      updateCounter(stack1);
     }
 
     function oppServReset() {
-      oppServSide();
-      mycount = 0;
-      oppcount = 0;
-      servcount = 2;
-      updateCounter();
+      stack = new TaskStack();
+      let stack1 = new Task(2, 0, 0, 2)
+      stack.push(stack1);
+      updateCounter(stack1);
+    }
+
+    function undo() {
+      // 現在の状態を削除
+      stack.pop();
+
+      // スタックが空なら初期化
+      if (stack.isEmpty()) {
+        stack.push(new Task(1, 0, 0, 2)); // デフォルトは自分サーブ
+      }
+
+      // 最後の状態を取得して表示
+      const lastState = stack.peek();
+      updateCounter(lastState);
     }
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
