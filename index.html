@@ -15,7 +15,13 @@
       margin: 20px 0;
       display: inline-block;
     }
-    button {
+    .button1 {
+      font-size: 1.2rem;
+      padding: 5px 5px;
+      margin: 0px 5px;
+      cursor: pointer;
+    }
+    .button2 {
       font-size: 1.2rem;
       padding: 10px 10px;
       margin: 0px 10px;
@@ -25,15 +31,15 @@
 </head>
 <body onload="myServReset();">
   <h1></h1>
-  <button onclick="myServReset()">自分サーブ開始</button>
-  <button onclick="oppServReset()">相手サーブ開始</button>
+  <button class="botton1" onclick="myServReset()">自分サーブ開始</button>
+  <button class="botton1" onclick="oppServReset()">相手サーブ開始</button>
   <div style="align-items: center;">
     <div class="counter" id="mycount">0</div><div class="counter">-</div><div class="counter" id="oppcount">0</div><div class="counter">-</div><div class="counter" id="servcount">0</div>
   </div>
-  <button onclick="myget()">&nbsp;&nbsp;&nbsp;&nbsp;自&nbsp;分&nbsp;&nbsp;&nbsp;&nbsp;</button>
-  <button onclick="oppget()">&nbsp;&nbsp;&nbsp;&nbsp;相&nbsp;手&nbsp;&nbsp;&nbsp;&nbsp;</button>
-  <div style="margin-top: 40px;">
-    <button onclick="undo()">&nbsp;&nbsp;戻&nbsp;す&nbsp;&nbsp;</button>
+  <button class="botton2" onclick="myget()">&nbsp;&nbsp;&nbsp;&nbsp;自&nbsp;分&nbsp;&nbsp;&nbsp;&nbsp;</button>
+  <button class="botton2"onclick="oppget()">&nbsp;&nbsp;&nbsp;&nbsp;相&nbsp;手&nbsp;&nbsp;&nbsp;&nbsp;</button>
+  <div style="margin-top: 20px;">
+    <button class="botton2" onclick="undo()">&nbsp;&nbsp;戻&nbsp;す&nbsp;&nbsp;</button>
   </div>
 
   <script>
